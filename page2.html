@@ -1419,7 +1419,7 @@
         💜 <strong>Poção da Atração Magnética:</strong> aumenta seu magnetismo pessoal e sua autoconfiança amorosa.
         </p>        
 
-        <a href="#" class="cta-button" onclick="event.preventDefault(); openModal();">SIM! QUERO MEU FEITIÇO + PRESENTES AGORA</a>
+        <a href="#" class="cta-button" onclick="openModal(); return false;">SIM! QUERO MEU FEITIÇO + PRESENTES AGORA</a>
 
         <h2>Você Tem Duas Opções...</h2>
 
@@ -1431,7 +1431,7 @@
 
         <p><span class="highlight">Escolha acreditar no poder do amor... No poder do destino.</span></p>
 
-        <a href="#" class="cta-button" onclick="event.preventDefault(); openModal();">TOMAR CONTROLE DA MINHA VIDA AMOROSA AGORA</a>
+        <a href="#" class="cta-button" onclick="openModal(); return false;">TOMAR CONTROLE DA MINHA VIDA AMOROSA AGORA</a>
 
         <div class="faq">
             <h2>Perguntas Frequentes:</h2>
@@ -1457,7 +1457,7 @@
             </div>
         </div>
 
-        <a href="#" class="cta-button" onclick="event.preventDefault(); openModal();">RESERVAR MEU FEITIÇO AGORA - R$59,90</a>
+        <a href="#" class="cta-button" onclick="openModal(); return false;">RESERVAR MEU FEITIÇO AGORA - R$59,90</a>
 
         <div class="footer">
             <p><a href="#">Política de Privacidade</a> - <a href="#">Termos e Condições</a> - <a href="#">Cláusula de Isenção de Responsabilidade</a></p>
@@ -1655,21 +1655,40 @@
         // Modal Functions
         function openModal() {
             const modal = document.getElementById('modalOverlay');
+            if (!modal) {
+                console.error('Modal não encontrado!');
+                return;
+            }
+            
+            // Garantir que o modal está visível
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
             
-            // Resetar para o passo 1
-            document.getElementById('step1').classList.add('active');
-            document.getElementById('step2').classList.remove('active');
-            document.getElementById('step3').classList.remove('active');
-            document.getElementById('progressBar').style.width = '33.33%';
+            // Resetar para o passo 1 - garantir que está ativo
+            const step1 = document.getElementById('step1');
+            const step2 = document.getElementById('step2');
+            const step3 = document.getElementById('step3');
+            const progressBar = document.getElementById('progressBar');
             
-            // Limpar campos do passo 1
-            document.getElementById('condition1').checked = false;
-            document.getElementById('condition2').checked = false;
-            document.getElementById('condition3').checked = false;
-            document.getElementById('userEmail').value = '';
-            document.getElementById('nextButton1').disabled = true;
+            if (step1 && step2 && step3 && progressBar) {
+                step1.classList.add('active');
+                step2.classList.remove('active');
+                step3.classList.remove('active');
+                progressBar.style.width = '33.33%';
+                
+                // Limpar campos do passo 1
+                const condition1 = document.getElementById('condition1');
+                const condition2 = document.getElementById('condition2');
+                const condition3 = document.getElementById('condition3');
+                const userEmail = document.getElementById('userEmail');
+                const nextButton1 = document.getElementById('nextButton1');
+                
+                if (condition1) condition1.checked = false;
+                if (condition2) condition2.checked = false;
+                if (condition3) condition3.checked = false;
+                if (userEmail) userEmail.value = '';
+                if (nextButton1) nextButton1.disabled = true;
+            }
         }
 
         function closeModal() {
