@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feitiço de Amor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background-image: url('images/planodefundo.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            color: #e6e6fa;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 30, 0.85);
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(20, 20, 50, 0.95) 0%, rgba(40, 20, 60, 0.95) 100%);
+            border-radius: 30px;
+            padding: 60px 50px;
+            box-shadow: 0 30px 80px rgba(138, 43, 226, 0.5), 
+                        0 0 100px rgba(75, 0, 130, 0.4),
+                        inset 0 0 80px rgba(138, 43, 226, 0.1);
+            border: 2px solid rgba(138, 43, 226, 0.4);
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ffd700, #ff8c00, #8a2be2, #4b0082);
+            border-radius: 30px;
+            z-index: -1;
+            opacity: 0.3;
+            filter: blur(20px);
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(255, 140, 0, 0.15) 100%);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .warning-box h1 {
+            font-size: 1.8em;
+            color: #ffd700;
+            font-weight: 400;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+            margin: 0;
+        }
+
+        h1 {
+            color: #ffd700;
+            font-size: 2.5em;
+            margin: 30px 0;
+            text-align: center;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 
+                        0 0 40px rgba(138, 43, 226, 0.6);
+            line-height: 1.4;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        h1.main-headline {
+            font-size: 2.8em;
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ff8c00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 40px 0 20px 0;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.3em;
+            color: #d8bfd8;
+            margin: 20px 0 60px 0;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        h2 {
+            color: #ffd700;
+            font-size: 1.8em;
+            margin: 40px 0 20px;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+        }
+
+        h3 {
+            color: #d8bfd8;
+            font-size: 1.4em;
+            margin: 20px 0 10px;
+        }
+
+        p {
+            font-size: 1.15em;
+            line-height: 1.8;
+            margin: 15px 0;
+            color: #e6e6fa;
+            text-align: justify;
+        }
+
+        .highlight {
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .story-image {
+            width: 100%;
+            max-width: 500px;
+            margin: 30px auto;
+            display: block;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(138, 43, 226, 0.5);
+            border: 3px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .story-image.error {
+            display: none;
+        }
+
+        .testimonial {
+            background: rgba(40, 20, 60, 0.6);
+            border-left: 4px solid #ffd700;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 10px;
+            font-style: italic;
+        }
+
+        .benefits-list {
+            background: rgba(40, 20, 60, 0.4);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 2px solid rgba(138, 43, 226, 0.3);
+        }
+
+        .benefits-list p {
+            margin: 12px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .benefits-list p::before {
+            content: '💜';
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+            color: #1a0033;
+            padding: 20px 50px;
+            font-size: 1.3em;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            display: block;
+            margin: 40px auto;
+            text-align: center;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+            transition: all 0.3s ease;
+            font-family: 'Georgia', serif;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.7);
+        }
+
+        .price {
+            text-align: center;
+            font-size: 1.5em;
+            color: #ffd700;
+            margin: 20px 0;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+        }
+
+        .price-strike {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 0.8em;
+        }
+
+        .urgency-box {
+            background: rgba(139, 0, 0, 0.3);
+            border: 2px solid rgba(255, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .counter {
+            font-size: 1.3em;
+            color: #ff6b6b;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .bonus-section {
+            background: linear-gradient(135deg, rgba(60, 40, 80, 0.6) 0%, rgba(40, 20, 60, 0.6) 100%);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 40px 0;
+            border: 2px solid rgba(138, 43, 226, 0.4);
+        }
+
+        .bonus-item {
+            margin: 25px 0;
+            padding: 20px;
+            background: rgba(20, 20, 40, 0.5);
+            border-radius: 15px;
+        }
+
+        .guarantee {
+            background: rgba(34, 139, 34, 0.2);
+            border: 2px solid rgba(34, 139, 34, 0.5);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .faq {
+            margin: 40px 0;
+        }
+
+        .faq-item {
+            background: rgba(40, 20, 60, 0.4);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 15px;
+            border-left: 4px solid #ffd700;
+        }
+
+        .faq-question {
+            color: #ffd700;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .footer {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 2px solid rgba(138, 43, 226, 0.4);
+            text-align: center;
+            color: #b19cd9;
+            font-size: 0.9em;
+            line-height: 2;
+        }
+
+        .footer a {
+            color: #ffd700;
+            text-decoration: none;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10, 10, 30, 0.95);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, rgba(20, 20, 50, 0.98) 0%, rgba(40, 20, 60, 0.98) 100%);
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 30px 80px rgba(138, 43, 226, 0.6), 
+                        0 0 100px rgba(75, 0, 130, 0.5),
+                        inset 0 0 80px rgba(138, 43, 226, 0.1);
+            border: 2px solid rgba(138, 43, 226, 0.5);
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: #e6e6fa;
+            font-size: 2em;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(138, 43, 226, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 8px;
+            background: rgba(40, 20, 60, 0.6);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #8a2be2 0%, #4b0082 50%, #ffd700 100%);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
+        }
+
+        .modal-step-title {
+            color: #ffd700;
+            font-size: 1.8em;
+            margin-bottom: 30px;
+            text-align: center;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+            font-weight: 400;
+        }
+
+        .modal-conditions {
+            margin: 30px 0;
+        }
+
+        .condition-item {
+            display: flex;
+            align-items: flex-start;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(40, 20, 60, 0.4);
+            border-radius: 15px;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+        }
+
+        .condition-item input[type="checkbox"] {
+            width: 22px;
+            height: 22px;
+            margin-right: 15px;
+            margin-top: 2px;
+            cursor: pointer;
+            accent-color: #ffd700;
+        }
+
+        .condition-item label {
+            color: #e6e6fa;
+            font-size: 1.1em;
+            line-height: 1.6;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .modal-email-field {
+            margin: 30px 0;
+        }
+
+        .modal-email-field label {
+            display: block;
+            color: #ffd700;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+        }
+
+        .modal-email-field input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(20, 20, 40, 0.6);
+            border: 2px solid rgba(138, 43, 226, 0.4);
+            border-radius: 15px;
+            color: #e6e6fa;
+            font-size: 1.1em;
+            font-family: 'Georgia', serif;
+            transition: all 0.3s ease;
+        }
+
+        .modal-email-field input:focus {
+            outline: none;
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .modal-email-field input::placeholder {
+            color: #b19cd9;
+        }
+
+        .modal-form-field {
+            margin: 25px 0;
+        }
+
+        .modal-form-field label {
+            display: block;
+            color: #ffd700;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+        }
+
+        .modal-form-field input[type="text"],
+        .modal-form-field select {
+            width: 100%;
+            padding: 15px;
+            background: rgba(20, 20, 40, 0.6);
+            border: 2px solid rgba(138, 43, 226, 0.4);
+            border-radius: 15px;
+            color: #e6e6fa;
+            font-size: 1.1em;
+            font-family: 'Georgia', serif;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .modal-form-field input[type="text"]:focus,
+        .modal-form-field select:focus {
+            outline: none;
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .modal-form-field input[type="text"]::placeholder {
+            color: #b19cd9;
+        }
+
+        .modal-form-field select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffd700' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            padding-right: 40px;
+        }
+
+        .modal-form-field select option {
+            background: rgba(20, 20, 40, 0.95);
+            color: #e6e6fa;
+        }
+
+        .modal-step {
+            display: none;
+        }
+
+        .modal-step.active {
+            display: block;
+        }
+
+        .modal-button {
+            background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+            color: #1a0033;
+            padding: 18px 40px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            display: block;
+            width: 100%;
+            margin: 30px auto 0;
+            text-align: center;
+            font-family: 'Georgia', serif;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .modal-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.7);
+        }
+
+        .modal-button:disabled {
+            background: rgba(100, 100, 100, 0.5);
+            color: #999;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .modal-button-secondary {
+            background: rgba(138, 43, 226, 0.3);
+            color: #e6e6fa;
+            padding: 15px 30px;
+            font-size: 1em;
+            font-weight: normal;
+            border: 2px solid rgba(138, 43, 226, 0.5);
+            border-radius: 50px;
+            cursor: pointer;
+            display: inline-block;
+            margin-right: 15px;
+            font-family: 'Georgia', serif;
+            transition: all 0.3s ease;
+        }
+
+        .modal-button-secondary:hover {
+            background: rgba(138, 43, 226, 0.5);
+            border-color: rgba(138, 43, 226, 0.7);
+        }
+
+        .modal-buttons-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .modal-success-message {
+            text-align: center;
+            padding: 30px 20px;
+            margin: 30px 0;
+        }
+
+        .modal-success-message h3 {
+            color: #ffd700;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+        }
+
+        .modal-success-message p {
+            color: #e6e6fa;
+            font-size: 1.2em;
+            line-height: 1.8;
+            margin: 15px 0;
+        }
+
+        .loading-bar {
+            width: 100%;
+            height: 12px;
+            background: rgba(40, 20, 60, 0.6);
+            border-radius: 10px;
+            margin: 30px 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .loading-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #8a2be2 0%, #4b0082 25%, #ffd700 50%, #ff8c00 75%, #8a2be2 100%);
+            background-size: 200% 100%;
+            border-radius: 10px;
+            animation: loadingAnimation 2s linear infinite;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.6);
+        }
+
+        @keyframes loadingAnimation {
+            0% {
+                background-position: 0% 0%;
+            }
+            100% {
+                background-position: 200% 0%;
+            }
+        }
+
+        .guarantee-text {
+            text-align: center;
+            color: #e6e6fa;
+            font-size: 0.9em;
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            h1.main-headline {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.4em;
+            }
+
+            p {
+                font-size: 1em;
+            }
+
+            .cta-button {
+                padding: 15px 30px;
+                font-size: 1.1em;
+            }
+
+            .modal-content {
+                padding: 30px 20px;
+                max-width: 100%;
+            }
+
+            .modal-step-title {
+                font-size: 1.5em;
+            }
+
+            .condition-item label {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- SEÇÃO DE AVISO -->
+        <div class="warning-box">
+            <h1>Se o homem que você ama te ignora completamente...</h1>
+        </div>
+
+        <!-- SEÇÃO DA HISTÓRIA -->
+        <h1 class="main-headline">IMPACTANTE: Uma mulher de 41 anos FAZ VOLTAR seu homem para sua vida em 11 dias...</h1>
+
+        <p class="subtitle">...após uma viagem arrepiante a uma vila esquecida no coração do Jalapão</p>
+
+        <h2>Querida Amiga Cujo Homem Se Afastou,</h2>
+
+        <p><span class="highlight">VOCÊ NÃO ESTÁ SOZINHA.</span></p>
+
+        <p>E assim como você...</p>
+
+        <p>O Universo escolheu <span class="highlight">DEZENAS DE MILHARES</span> de mulheres para chegarem a esta página.</p>
+
+        <p>Mulheres de todo o Brasil... De São Paulo, Minas Gerais, Rio de Janeiro, Bahia...</p>
+
+        <p><span class="highlight">Mães solteiras... Divorciadas...</span></p>
+
+        <p><span class="highlight">Mulheres casadas</span> buscando reacender a paixão perdida há muito tempo...</p>
+
+        <p><span class="highlight">Mulheres solteiras</span> cuja vida amorosa está em ruínas.</p>
+
+        <p>Literalmente... Mulheres de TODAS as origens.</p>
+
+        <p>Todas vieram aqui com um <span class="highlight">coração partido...</span></p>
+
+        <p>E um desejo comum...</p>
+
+        <p>... Fazer o homem que amam voltar <span class="highlight">OBCECADO</span> por elas... depois que ele se afastou...</p>
+
+        <p>E depois que ele começou a agir de forma <span class="highlight">fria e distante...</span></p>
+
+        <p>... talvez até mesmo <span class="highlight">saindo com outra mulher.</span></p>
+
+        <p>Aquelas que confiaram no seu instinto...</p>
+
+        <p>... e continuaram com o que estou prestes a compartilhar em um minuto...</p>
+
+        <p>Saíram cheias de esperança.</p>
+
+        <p>E pouco depois...</p>
+
+        <p>Suas vidas mudaram completamente...</p>
+
+        <p>Você não precisa acreditar em mim...</p>
+
+        <p>Confira você mesma...</p>
+
+        <img src="images/Gemini_Generated_Image_sfdapesfdapesfda.png" alt="Testemunho" class="story-image">
+        <img src="images/Gemini_Generated_Image_a8du44a8du44a8du.png" alt="Testemunho" class="story-image">
+        <img src="images/Gemini_Generated_Image_fw9wp1fw9wp1fw9w.png" alt="Testemunho" class="story-image">
+        <img src="images/Gemini_Generated_Image_wpfqo7wpfqo7wpfq.png" alt="Testemunho" class="story-image">
+
+        <h2>Então se você teve "azar" no amor...</h2>
+
+        <p>E se você acredita <span class="highlight">no poder das estrelas...</span></p>
+
+        <p>Então você está na <span class="highlight">página mais importante</span> da sua vida...</p>
+
+        <p>... porque em apenas 2 minutos...</p>
+
+        <p>Você vai descobrir uma prática proibida para <span class="highlight">fazer seu homem voltar para você.</span></p>
+
+        <p>Esse homem que te enviava sinais contraditórios antes de desaparecer...</p>
+
+        <p>... vai voltar <span class="highlight">rastejando aos seus pés...</span></p>
+
+        <p><span class="highlight">... para pedir perdão...</span></p>
+
+        <p>... e <span class="highlight">IMPLORAR para que você dê uma segunda chance.</span></p>
+
+        <p>Uma vez que você tenha aplicado o que vai descobrir nesta página...</p>
+
+        <p>... Seu homem vai acordar no meio da noite...</p>
+
+        <p><span class="highlight">Sentirá seu peito apertar...</span></p>
+
+        <p>... sua respiração acelerar...</p>
+
+        <p>E um desejo repentino de estar com você tomará conta de sua alma.</p>
+
+        <p><span class="highlight">Da noite para o dia...</span></p>
+
+        <p>Sua missão de vida será <span class="highlight">voltar para você...</span></p>
+
+        <p><span class="highlight">... fazer você feliz...</span></p>
+
+        <p>... e <span class="highlight">passar o resto da vida te amando.</span></p>
+
+        <p>Mas antes de revelar do que se trata...</p>
+
+        <h2>Deixe-me Contar Minha Pequena História...</h2>
+
+        <p>Tudo começou quando recebi esta mensagem que revirou meu estômago...</p>
+
+        <div class="testimonial">
+            <p>"Desculpe, mas acho que isso não vai dar certo entre nós. Pare de me mandar mensagens."</p>
+        </div>
+
+        <p><span class="highlight">Enquanto meus olhos percorriam sua mensagem...</span></p>
+
+        <p><span class="highlight">Meu coração</span> errou uma batida.</p>
+
+        <p><span class="highlight">Minhas mãos</span> tremiam.</p>
+
+        <p>E o sangue ferveu meu rosto.</p>
+
+        <p>Por um bom minuto... Fiquei paralisada, sem saber como reagir.</p>
+
+        <p>Então desabei no chão do meu banheiro...</p>
+
+        <p><span class="highlight">Chorei e gritei com toda força.</span></p>
+
+        <img src="images/85b353dd-86d8-4837-9cea-8e44c5198ed9.png" alt="Mulher triste" class="story-image">
+
+        <p>... Fernando, o homem com quem pensava passar o resto da minha vida...</p>
+
+        <p><span class="highlight">... acabava de terminar comigo.</span></span></p>
+
+        <p>O que eu tinha feito de errado?</p>
+
+        <p>Eu era gentil e atenciosa.</p>
+
+        <p>Revelei coisas sobre mim que nunca tinha compartilhado antes, nem mesmo com minhas melhores amigas.</p>
+
+        <p>Ele parecia <span class="highlight">sincero.</span></p>
+
+        <p>Me enchia de amor TODOS os dias.</p>
+
+        <p>E agora tinha desaparecido!!!</p>
+
+        <h2>Os Meses Mais Sombrios da Minha Vida...</h2>
+
+        <p><span class="highlight">Eu sentia falta dele terrivelmente.</span></p>
+
+        <p>Ardia por dentro.</p>
+
+        <p>Cada noite... me revirava na cama sem conseguir dormir...</p>
+
+        <p>Tentando resistir à VONTADE de ver seu Instagram...</p>
+
+        <p>Geralmente, por volta das 3 da manhã... Acabava cedendo... via seu Insta... E adormecia chorando.</p>
+
+        <p>Para tentar superá-lo...</p>
+
+        <p>... Tentei sair com outros homens...</p>
+
+        <p>Mas a imagem de Fernando atormentava minha alma.</p>
+
+        <p><span class="highlight">Esses encontros me faziam sentir que o estava traindo.</span></p>
+
+        <p>Beijar outro homem desencadeava culpa em mim.</p>
+
+        <p><span class="highlight">SEI que NÃO deveria ter sentido isso...</span></p>
+
+        <p>Mas o que você quer...</p>
+
+        <p>Sentia que pertencia a Fernando e a mais ninguém.</p>
+
+        <p>Assim foi a minha vida durante alguns meses...</p>
+
+        <h2>Até o Dia em Que...</h2>
+
+        <p>Meu telefone vibrou.</p>
+
+        <p><span class="highlight">Uma mensagem da minha melhor amiga Bárbara.</span></p>
+
+        <div class="testimonial">
+            <p>"É hora de virar a página, eu tenho algo para você"</p>
+        </div>
+
+        <p>Bárbara me propôs uma viagem de garotas aos fervedouros do Jalapão, no coração do Tocantins.</p>
+
+        <p>Aceitei... esperando que <span class="highlight">me ajudasse a esquecer Fernando.</span></p>
+
+        <img src="images/20250612_100647_fervedouro-jalapao.jpg" alt="Termas" class="story-image">
+
+        <p>Para falar a verdade...</p>
+
+        <p>As águas cristalinas, borbulhando do fundo da terra e cercadas por mata dourada, <span class="highlight">só me faziam pensar nele ainda mais.</span></p>
+
+        <p>Cada flutuar sem esforço despertava memórias... e emoções que eu não estava pronta para enfrentar...</p>
+
+        <p><span class="highlight">Depois do nosso dia entre os fervedouros...</span></p>
+
+        <p>Bárbara nos propôs um jantar na casa de sua avó.</p>
+
+        <h2>O Encontro Que Mudou Tudo...</h2>
+
+        <p>Enquanto nos instalávamos na cozinha...</p>
+
+        <p>... sua avó me olhou de forma estranha...</p>
+
+        <p>... sussurrando algo para Bárbara em karajá.</p>
+
+        <p>Não entendi... mas sabia que era sobre mim.</p>
+
+        <p><span class="highlight">Bárbara franziu a testa...</span></p>
+
+        <div class="testimonial">
+            <p>"Vovó, pare! Ela não acredita nessas coisas!"</p>
+        </div>
+
+        <p><span class="highlight">Intrigada, perguntei...</span></p>
+
+        <p><em>"Quem é Dona Jurema?"</em></p>
+
+        <p>Bárbara descartou a pergunta com um gesto...</p>
+
+        <p>Mas sua avó me explicou...</p>
+
+        <p><span class="highlight">Dona Jurema era uma praticante reconhecida de Ghicitorie...</span></p>
+
+        <p>Uma mestre dos feitiços de amor karajás.</p>
+
+        <p>Eu ri e disse que não acreditava nisso...</p>
+
+        <p><span class="highlight">Mas no fundo, me perguntava...</span></p>
+
+        <p><span class="highlight">E se?</span></p>
+
+        <p><span class="highlight">Aquela</span> noite, a ideia girava na minha cabeça.</p>
+
+        <p>Talvez...</p>
+
+        <p>Talvez...</p>
+
+        <p><span class="highlight">Eu deveria</span> tentar.</p>
+
+        <p><span class="highlight">Na manhã seguinte...</span></p>
+
+        <h2>... Pedi a Bárbara que me levasse para ver Dona Jurema...</h2>
+
+        <p><span class="highlight">Depois de 2 horas de estrada...</span></p>
+
+        <p>Chegamos em frente a uma cabana velha...</p>
+
+        <p>... no coração do cerrado de uma pequena vila.</p>        
+
+        <img src="images/313ab35d-7440-4d15-bd94-5d9710e88c7f.jpeg" alt="Cabana mística" class="story-image">
+
+        <p>No interior...</p>
+
+        <p>O ar estava carregado de ervas e incenso.</p>
+
+        <h2>O Feitiço Proibido...</h2>
+
+        <p>Dona Jurema...</p>
+
+        <p>Uma anciã de olhar penetrante...</p>
+
+        <p>... escutou em silêncio enquanto a avó de Bárbara explicava.</p>
+
+        <p>Negou com a cabeça.</p>
+
+        <div class="testimonial">
+            <p>"Vá embora. Esta magia não é para você."</p>
+        </div>
+
+        <p><span class="highlight">Meu coração se apertou enquanto essa recusa esmagava a frágil esperança à qual eu havia me agarrado.</span></p>
+
+        <p>Mas eu estava decidida a fazer isso...</p>
+
+        <p>Então voltamos no dia seguinte...</p>
+
+        <p>E mais uma vez...</p>
+
+        <p>Ela recusou.</p>
+
+        <p>Na terceira visita...</p>
+
+        <p>Finalmente cedeu...</p>
+
+        <p>Sua voz grave, cheia de advertência.</p>
+
+        <p>Perguntou...</p>
+
+        <p><em><span class="highlight">"Você tem certeza de que quer isso?"</span></em></p>
+
+        <p>Seus olhos examinando os meus.</p>
+
+        <div class="testimonial">
+            <p>"Este feitiço é poderoso. Uma vez lançado, não pode ser desfeito. Se usá-lo com más intenções, sofrerá."</p>
+        </div>
+
+        <img src="images/311821d2-9889-4cf3-b96e-05be6ff6ab27.png" alt="Ritual místico" class="story-image">
+
+        <p><span class="highlight">Assenti com a cabeça...</span></p>
+
+        <p><em>"Eu o amo. Quero estar com ele."</em></p>
+
+        <p>Dona Jurema fez uma pausa...</p>
+
+        <p>Seu olhar se aguçou.</p>
+
+        <p>"Qual é seu signo astrológico?" ela perguntou.</p>
+
+        <p><span class="highlight">"Libra"</span> respondi.</p>
+
+        <p>Ela assentiu lentamente com a cabeça...</p>
+
+        <p>... como se as peças do quebra-cabeça se encaixassem.</p>
+
+        <p>"Os Libranos são complexos... intensos... guiados por emoções profundas. Não será fácil."</p>
+
+        <p><span class="highlight">Com um suspiro...</span></p>
+
+        <p>Ela reuniu seus ingredientes...</p>
+
+        <p><span class="highlight">Murmurando</span> em um idioma que eu não entendia.</p>
+
+        <p><span class="highlight">A sala</span> escureceu...</p>
+
+        <p><span class="highlight">O ar</span> ficou pesado com sua magia.</p>
+
+        <p>Quando terminou...</p>
+
+        <p>Me entregou um pequeno frasco.</p>
+
+        <p><em><span class="highlight">"Vá,"</span> disse. <span class="highlight">"E lembre-se das minhas palavras."</span></em></p>
+
+        <p>Saímos da cabana de Dona Jurema... o peso de seu aviso ainda presente no ar.</p>
+
+        <p>Naquela noite... o sono foi embora.</p>
+
+        <p>Estava deitada na minha cama, com os olhos fixos no teto... revivendo os eventos do dia várias vezes.</p>
+
+        <h2>"O que eu tinha feito? Realmente acreditava em tudo isso?"</h2>
+
+        <p><span class="highlight">A manhã</span> chegou rápido demais...</p>
+
+        <p>... e antes que eu percebesse, estávamos a caminho do aeroporto.</p>
+
+        <p><span class="highlight">Quando o avião</span> pousou...</p>
+
+        <p>Uma sensação de alívio me invadiu.</p>
+
+        <p>Mas tinha o coração pesado.</p>
+
+        <p>A viagem tinha acabado...</p>
+
+        <p><span class="highlight">A realidade me esperava.</span></p>
+
+        <h2>O Resultado Foi... SURREAL</h2>
+
+        <p>Mal desativei o modo avião...</p>
+
+        <p><span class="highlight">Meu telefone vibrou.</span></p>
+
+        <p><span class="highlight">Era Fernando.</span></p>
+
+        <p>Uma mensagem simples:</p>
+
+        <div class="testimonial">
+            <p>"Sinto muito sua falta."</p>
+        </div>
+
+        <p>Meu coração acelerou ao ler essas palavras... a incredulidade se misturando com a esperança.</p>
+
+        <p>Outras mensagens começaram a chegar...</p>
+
+        <p>Ele queria me ver... falar comigo.</p>
+
+        <p><span class="highlight">Quando nos reencontramos, foi surreal.</span></p>
+
+        <h2>Ele me olhou com olhos cheios de amor... uma ternura que eu acreditava ter perdido para sempre.</h2>
+
+        <img src="images/8dc01d37-14fc-46f0-a538-8cfe9dcd7ca3.jpeg" alt="Casal reunido" class="story-image">
+
+        <p><span class="highlight">Ele se desculpou</span>... disse que tinha estado distante, mas que agora tudo estava claro.</p>
+
+        <p><span class="highlight">Começou a falar de projetos...</span></p>
+
+        <p><span class="highlight">... a falar de um futuro que tinha vontade de compartilhar comigo.</span></p>
+
+        <p>Enquanto caminhávamos...</p>
+
+        <p><span class="highlight">Ele ficava perto...</span></p>
+
+        <p><span class="highlight">... protetor...</span></p>
+
+        <p><span class="highlight">... me protegendo do mundo ao nosso redor.</span></p>
+
+        <p>Nas pequenas coisas...</p>
+
+        <p>... a forma como segurava minha mão...</p>
+
+        <p>... ou a forma como me olhava...</p>
+
+        <p><span class="highlight">Eu podia sentir.</span></p>
+
+        <p>O feitiço de Dona Jurema tinha funcionado.</p>
+
+        <p><span class="highlight">Tinha despertado algo profundo nele... algo que o fazia me amar intensamente.</span></p>
+
+        <p>E naquele momento... eu soube.</p>
+
+        <p>O feitiço nos tinha unido... e eu estava cheia de gratidão.</p>
+
+        <p><span class="highlight">Quando contei a Bárbara, ela me confessou... Dona Jurema também a tinha ajudado.</span></p>
+
+        <h2>Dezenas De Outras Mulheres Reconquistaram O Homem Que Amam...</h2>
+
+        <p>Havia essa mulher...</p>
+
+        <p>... cujo amor era um homem de Áries.</p>
+
+        <p>Fogoso, teimoso, impossível de dominar.</p>
+
+        <p>Dona Jurema preparou um feitiço aproveitando o poder da lua nova.</p>
+
+        <p><span class="highlight">Em poucos dias...</span></p>
+
+        <p>Ele voltou...</p>
+
+        <p>... sua paixão reacendida...</p>
+
+        <p>... incapaz de resistir à atração.</p>
+
+        <p>Outra mulher...</p>
+
+        <p>Amava um homem de Leão.</p>
+
+        <p>Para ela...</p>
+
+        <h2>... Dona Jurema usou a energia do sol pleno...</h2>
+
+        <img src="images/c301ecd4-c84e-4332-b8ce-b22db20ed8fa.jpeg" alt="Sol místico" class="story-image">
+
+        <p><span class="highlight">Ele voltou...</span></p>
+
+        <p><span class="highlight">Com uma explosão de afeto...</span></p>
+
+        <p>Pronto para reclamar o que lhe pertencia.</p>
+
+        <p>E então...</p>
+
+        <p>Havia essa mulher cujo amor era de Escorpião.</p>
+
+        <p>O feitiço de Dona Jurema se conectou com as águas profundas da emoção...</p>
+
+        <p>Durante uma noite de lua cheia.</p>
+
+        <p><span class="highlight">Ele voltou...</span></p>
+
+        <p>Atraído pela <span class="highlight">conexão inegável...</span></p>
+
+        <div class="benefits-list">
+            <h3>Pode Funcionar Para QUALQUER Mulher E Com QUALQUER Homem...</h3>
+            <p>Mesmo se ele for Libra</p>
+            <p>Mesmo se seus signos forem incompatíveis</p>
+            <p>Mesmo se ele tiver medo de compromisso</p>
+            <p>Mesmo se fizer MESES que ele desapareceu</p>
+            <p>Mesmo se você foi rápida demais para a cama com ele</p>
+            <p>Mesmo se você for uma mulher comum</p>
+            <p>Mesmo se estiverem em um relacionamento à distância</p>
+            <p>Mesmo se você for mãe solteira</p>
+            <p>Mesmo se você tiver 30, 40, 50, 60 anos ou +</p>
+            <p>Mesmo se foi você quem o deixou</p>
+            <p>Funciona até se você o TRAIU!</p>
+        </div>
+
+        <p>Porque ao contrário de outros feitiços de amor</p>
+
+        <p>Este feitiço é projetado especificamente para o signo astrológico do seu homem.</p>
+
+        <hr style="border: none; border-top: 2px solid rgba(138, 43, 226, 0.3); margin: 40px 0;">
+
+        <h1>O Feitiço de Amor Ghicitorie: O Feitiço de Amor Proibido Que Faz Um Homem Ficar Obcecado Por Você</h1>
+
+        <img src="images/311821d2-9889-4cf3-b96e-05be6ff6ab27.png" alt="Feitiço místico" class="story-image">
+
+        <p>Este feitiço se nutre das antigas tradições Ghicitorie...</p>
+
+        <p>Uma arte esotérica proveniente do coração místico da Romênia.</p>
+
+        <p><span class="highlight">É a forma de magia amorosa mais poderosa já concebida.</span></p>
+
+        <p>Este feitiço alinha as energias do zodíaco...</p>
+
+        <p>Unindo seu coração e sua alma aos seus...</p>
+
+        <p><span class="highlight">Fazendo com que ele se comprometa com você de uma vez por todas.</span></p>
+
+        <p>Uma vez lançado...</p>
+
+        <p><span class="highlight">Ele será irresistivelmente atraído por você...</span></p>
+
+        <p><span class="highlight">Sua mente cativada por você...</span></p>
+
+        <p><span class="highlight">Seu coração ardendo para pertencer a você.</span></p>
+
+        <p>É um poder raro...</p>
+
+        <p>Que não se encontra em nenhum outro lugar.</p>
+
+        <p>Uma vez que você tenha pedido este feitiço...</p>
+
+        <h2>... Dona Jurema preparará o feitiço de acordo com seu signo astrológico...</h2>
+
+        <p><span class="highlight">O ritual é realizado durante uma janela astrológica precisa...</span></p>
+
+        <p>Para garantir uma potência máxima...</p>
+
+        <p>Levando de 24 a 72 horas dependendo das estrelas.</p>
+
+        <p>Cada feitiço é lançado durante uma fase lunar específica...</p>
+
+        <p>Para amplificar seu poder e <span class="highlight">selar seu compromisso inquebrantável.</span></p>
+
+        <p>Quando o momento é propício...</p>
+
+        <p>Dona Jurema realizará o ritual...</p>
+
+        <p>Utilizando encantamentos antigos e ingredientes raros...</p>
+
+        <p>... escolhidos para ressoar com seu signo astrológico.</p>
+
+        <p>Uma vez lançado...</p>
+
+        <h2>... Seu desejo por você crescerá cada dia um pouco mais...</h2>
+
+        <img src="images/b202033f-ceca-410e-bc39-38b22cea782b.jpeg" alt="Amor verdadeiro" class="story-image">
+
+        <p>Até que ele esteja <span class="highlight">completamente dedicado...</span></p>
+
+        <p><span class="highlight">Ansiando por sua presença...</span></p>
+
+        <p>E <span class="highlight">pronto para se comprometer para sempre.</span></p>
+
+        <p>Mas antes de pedir este feitiço...</p>
+
+        <p>Você deve ter certeza de suas intenções.</p>
+
+        <p>É magia proibida...</p>
+
+        <p>De um poder incomensurável.</p>
+
+        <p>E uma vez em movimento...</p>
+
+        <p>Não há volta atrás.</p>
+
+        <p>Você está pronta para fazer isso... de uma vez por todas?</p>
+
+        <h2>Se Sim, Você Deve Prometer 4 Coisas</h2>
+
+        <div class="bonus-item">
+            <h3>1. Você deve ter certeza absoluta de que ele é para você...</h3>
+            <p>Este feitiço é destinado àquelas que sentem uma conexão profunda e inegável... Um vínculo que merece ser fortalecido ou reacendido.</p>
+            <p>Não é uma ferramenta de manipulação...</p>
+            <p>E não é feito para ser usado por simples curiosidade.</p>
+            <p>Você não pode usar este feitiço com más intenções...</p>
+            <p>Nem em alguém que você realmente não ama.</p>
+        </div>
+
+        <div class="bonus-item">
+            <h3>2. Você deve ter certeza do signo astrológico dele...</h3>
+            <p>O Feitiço de Amor Zodiacal Ghicitorie está profundamente conectado com as estrelas...</p>
+            <p>Se não tiver certeza do signo astrológico dele...</p>
+            <p>O feitiço não funcionará como esperado.</p>
+            <p>Cada signo requer sua própria magia específica...</p>
+            <p>Alinhada com as energias do cosmos.</p>
+            <p>Seja precisa antes de pedir o feitiço...</p>
+            <p>Porque qualquer erro poderia enfraquecer o vínculo...</p>
+            <p>Ou causar consequências imprevistas.</p>
+        </div>
+
+        <div class="bonus-item">
+            <h3>3. Você deve entender que este feitiço é IRREVOGÁVEL...</h3>
+            <p>Uma vez lançado este poderoso feitiço...</p>
+            <p>Não há volta atrás.</p>
+            <p>O homem será irresistivelmente atraído por você...</p>
+            <p>... sua mente obcecada com sua presença.</p>
+            <p>Não é uma atração passageira...</p>
+            <p>Mas um compromisso para a vida toda.</p>
+            <p>Certifique-se de que isso é realmente o que você deseja...</p>
+            <p>Porque uma vez que o coração dele seja seu...</p>
+            <p>Ele estará completamente dedicado...</p>
+            <p>Obsessado com você além de toda medida.</p>
+        </div>
+
+        <div class="bonus-item">
+            <h3>4. Você deve jurar manter este ritual em segredo...</h3>
+            <p>Dona Jurema valoriza sua privacidade...</p>
+            <p>E você também deve respeitá-la.</p>
+            <p>Falar disso com uma pessoa que não está iniciada nessas práticas antigas...</p>
+            <p>Só trará confusão e perturbará a magia.</p>
+            <p>É um ritual sagrado...</p>
+            <p>E deve ser tratado como tal.</p>
+            <p>Uma vez que você tenha feito essas promessas...</p>
+            <p>O ritual começará...</p>
+            <p>E o feitiço será lançado.</p>
+            <p>O homem que se afastou...</p>
+            <p>Será atraído de volta para você...</p>
+            <p>Mais ardente e apaixonado do que nunca.</p>
+        </div>
+
+        <p>Então agora, a pergunta é...</p>
+
+        <h1>Está Pronta Para Finalmente Fazer O Homem Que Ama Voltar OBCECADO Por Você... E Só Por VOCÊ?</h1>
+
+        <img src="images/b202033f-ceca-410e-bc39-38b22cea782b.jpeg" alt="Amor verdadeiro" class="story-image">
+
+        <p><span class="highlight">Você está pronta para viver um amor tão profundo...</span></p>
+
+        <p>Tão poderoso...</p>
+
+        <p><span class="highlight">Que ele não conseguirá pensar em mais ninguém além de você?</span></p>
+
+        <p>Porque você encontrou esta página e leu até aqui...</p>
+
+        <p>Eu sei que você é alguém que realmente valoriza seu relacionamento.</p>
+
+        <p>Mas você deve entender...</p>
+
+        <p>Dona Jurema recebe inúmeras solicitações para seus poderosos feitiços de amor.</p>
+
+        <p>E devido à energia intensa e à concentração que esses feitiços requerem...</p>
+
+        <p><span class="highlight">Ela só pode lançar alguns a cada semana.</span></p>
+
+        <p>Normalmente, ela cobra R$399,90 por um único feitiço de amor...</p>
+
+        <p>E isso é o que muitos pagaram com prazer (inclusive eu).</p>
+
+        <p>Mas você está em uma posição única neste momento.</p>
+
+        <p><span class="highlight">Não sei como você encontrou esta página...</span></p>
+
+        <p>Mas fico feliz que tenha encontrado.</p>
+
+        <p>É uma oportunidade especial...</p>
+
+        <p>Uma que desbloqueia um número limitado de vagas a um preço acessível.</p>
+
+        <h2>... Dona Jurema quer garantir que toda mulher que busca sinceramente o amor...</h2>
+
+        <p>Que está séria em sua busca para encontrar sua alma gêmea...</p>
+
+        <p>... possa acessar este poderoso feitiço.</p>
+
+        <p>Então hoje...</p>
+
+        <p><span class="highlight">Você pode receber o Feitiço de Amor Zodiacal Ghicitorie por apenas R$59,90.</span></p>
+
+        <p>Sim, é só isso.</p>
+
+        <p>Talvez você se pergunte por que é tão acessível...</p>
+
+        <p>Como dissemos...</p>
+
+        <p>Não é uma questão de dinheiro.</p>
+
+        <p>Se fosse possível, ofereceria gratuitamente.</p>
+
+        <p>Mas há custos reais...</p>
+
+        <p>Para manter este site...</p>
+
+        <p>Para cobrir o tempo e os recursos necessários...</p>
+
+        <p>Para manter viva essa tradição antiga.</p>
+
+        <p>E esse custo é de R$59,90 por solicitação.</p>
+
+        <p>Nosso objetivo é simples.</p>
+
+        <p>Ajudar mulheres de todo o Brasil...</p>
+
+        <p>Mulheres que são sérias no amor...</p>
+
+        <p>A encontrar e manter o homem dos seus sonhos.</p>
+
+        <p>Mas esta oferta não durará para sempre...</p>
+
+        <p>Só há um número limitado de vagas disponíveis.</p>
+
+        <p>Como mencionei...</p>
+
+        <h2>Dona Jurema só pode realizar alguns desses rituais a cada semana...</h2>
+
+        <p>Geralmente, apenas de 3 a 6.</p>
+
+        <div class="urgency-box">
+            <h3>Vagas Limitadas Esta Semana!</h3>
+            <p class="counter">Número De Feitiços Lançados Esta Semana: 4</p>
+            <p class="counter">Número De Vagas Restantes: 2</p>
+        </div>
+
+        <p><span class="highlight">Então, se você está pronta para trazer o amor para sua vida...</span></p>
+
+        <p>Eu te convido a reservar sua vaga agora.</p>
+
+        <p>E lembre-se...</p>
+
+        <p>Em alguns dias, você poderia estar exatamente no mesmo ponto de hoje...</p>
+
+        <p>Ou você poderia ter o homem da sua vida...</p>
+
+        <p>Completamente dedicado a você.</p>
+
+        <p>A escolha é sua.</p>
+
+        <p>Com todo meu carinho,</p>
+
+        <p><span class="highlight">Júlia</span></p>
+
+        <p>P.S. Ah! Esqueci de mencionar, se você enviar sua solicitação hoje (supondo que reste uma vaga)... <span class="highlight">Você receberá estes 3 PRESENTES GRÁTIS...</span></p>
+
+        <h2>Presente #1: O Ritual da Rosa Vermelha</h2>
+
+        <img src="images/Gemini_Generated_Image_sgptf7sgptf7sgpt.png" alt="Presente 1" style="width: 200px; margin: 15px auto; display: block; border-radius: 10px;">
+        
+        <p><strong>O Segredo das Pétalas do Desejo</strong></p>
+        <p>
+        Neste presente especial, você vai aprender rituais ancestrais para ativar o magnetismo emocional e despertar a paixão profunda.
+        </p>
+        <p>
+        💜 <strong>Ritual das Pétalas do Desejo:</strong> fortalece a conexão emocional e faz com que ele pense em você de forma constante.<br>
+        💜 <strong>Encanto da Rosa Vermelha:</strong> ativa energias de amor, sedução e aproximação.<br>
+        💜 <strong>Visualização Amorosa Guiada:</strong> alinha sua energia com o universo para atrair mensagens, encontros e atitudes amorosas.
+        </p>
+        
+        <hr style="border: none; border-top: 1px solid rgba(138, 43, 226, 0.3); margin: 30px 0;">
+        
+        <h2>Presente #2: Desperte Seu Poder Astral</h2>
+        
+        <img src="images/Gemini_Generated_Image_juj2xxjuj2xxjuj2.png" alt="Presente 2" style="width: 200px; margin: 15px auto; display: block; border-radius: 10px;">
+        
+        <p><strong>Seu Guia Completo de Feitiços e Rituais Astrológicos</strong></p>
+        <p>
+        Aqui você vai aprender a usar as forças do cosmos como aliadas no amor, na proteção espiritual e no equilíbrio emocional.
+        </p>
+        <p>
+        ✨ <strong>Guia de Compatibilidade Amorosa:</strong> descubra afinidades, desafios e como fortalecer relações pelos signos.<br>
+        ✨ <strong>Magia das Fases Lunares:</strong> saiba qual fase usar para amor, prosperidade, proteção e renovação.<br>
+        ✨ <strong>Feitiço de Proteção Astrológica:</strong> crie um ritual personalizado baseado no seu signo.
+        </p>
+        
+        <hr style="border: none; border-top: 1px solid rgba(138, 43, 226, 0.3); margin: 30px 0;">
+        
+        <h2>Presente #3: Os Segredos da Atração Amorosa</h2>
+        
+        <img src="images/Gemini_Generated_Image_cw6sz8cw6sz8cw6s.png" alt="Presente 3" style="width: 200px; margin: 15px auto; display: block; border-radius: 10px;">
+        
+        <p><strong>Feitiços Antigos para um Romance Moderno</strong></p>
+        <p>
+        Rituais ancestrais adaptados para os desafios do amor nos dias de hoje, para quem deseja viver um relacionamento intenso, verdadeiro e duradouro.
+        </p>
+        <p>
+        💜 <strong>Ritual do Renascimento da Paixão:</strong> reacende sentimentos e restaura a química emocional.<br>
+        💜 <strong>Feitiço do Vínculo Inquebrantável:</strong> fortalece confiança, cumplicidade e compromisso.<br>
+        💜 <strong>Poção da Atração Magnética:</strong> aumenta seu magnetismo pessoal e sua autoconfiança amorosa.
+        </p>        
+
+        <a href="#" class="cta-button" onclick="event.preventDefault(); openModal();">SIM! QUERO MEU FEITIÇO + PRESENTES AGORA</a>
+
+        <h2>Você Tem Duas Opções...</h2>
+
+        <p><span class="highlight">Opção 1...</span> Feche esta página... Continue se perguntando o que poderia ter acontecido... enquanto o vê se afastar cada vez mais...</p>
+
+        <p><span class="highlight">Opção 2...</span> Veja esta página como um sinal do universo. Afinal... Entre os milhões de sites que existem... Você encontrou seu caminho até este. E leu até aqui. Não é uma coincidência.</p>
+
+        <p><span class="highlight">Confie na sua intuição.</span></p>
+
+        <p><span class="highlight">Escolha acreditar no poder do amor... No poder do destino.</span></p>
+
+        <a href="#" class="cta-button" onclick="event.preventDefault(); openModal();">TOMAR CONTROLE DA MINHA VIDA AMOROSA AGORA</a>
+
+        <div class="faq">
+            <h2>Perguntas Frequentes:</h2>
+
+            <div class="faq-item">
+                <p class="faq-question">O que torna este feitiço de amor diferente?</p>
+                <p>A maioria dos feitiços de amor tenta forçar um homem a se apaixonar. Os feitiços de Dona Jurema são muito mais poderosos porque alinham as energias zodiacais dele com o fluxo natural da atração.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-question">Quanto tempo leva para funcionar?</p>
+                <p>Algumas mulheres veem resultados no mesmo dia em que o feitiço é lançado, enquanto outras devem esperar um pouco mais. O momento depende da sua situação única e do alinhamento das estrelas.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-question">Quanto custa?</p>
+                <p>São apenas R$59,90 para as primeiras mulheres que solicitarem um feitiço. Normalmente custa R$399,90.</p>
+            </div>
+
+            <div class="faq-item">
+                <p class="faq-question">Como posso lançar este feitiço?</p>
+                <p>Comece clicando no botão abaixo. Você será direcionada a um breve questionário. Depois disso, verificaremos se restam vagas disponíveis. O feitiço será lançado nas próximas 24 a 72 horas.</p>
+            </div>
+        </div>
+
+        <a href="#" class="cta-button" onclick="event.preventDefault(); openModal();">RESERVAR MEU FEITIÇO AGORA - R$59,90</a>
+
+        <div class="footer">
+            <p><a href="#">Política de Privacidade</a> - <a href="#">Termos e Condições</a> - <a href="#">Cláusula de Isenção de Responsabilidade</a></p>
+            <p style="margin-top: 15px;">Copyright 2025 - juliacastro.com - Todos os direitos reservados</p>
+        </div>
+    </div>
+
+    <!-- Modal de Passos -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            
+            <!-- Barra de Progresso -->
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar" style="width: 33.33%;"></div>
+            </div>
+
+            <!-- Passo 1 -->
+            <div class="modal-step active" id="step1">
+                <h2 class="modal-step-title">Passo 1: Você deve aceitar estas condições</h2>
+                
+                <div class="modal-conditions">
+                    <div class="condition-item">
+                        <input type="checkbox" id="condition1" onchange="checkAllConditions()">
+                        <label for="condition1">Entendo que devo acreditar nisto para que este feitiço funcione.</label>
+                    </div>
+                    
+                    <div class="condition-item">
+                        <input type="checkbox" id="condition2" onchange="checkAllConditions()">
+                        <label for="condition2">Entendo que este feitiço é <strong>IRREVOGÁVEL</strong>. Não pode ser cancelado.</label>
+                    </div>
+                    
+                    <div class="condition-item">
+                        <input type="checkbox" id="condition3" onchange="checkAllConditions()">
+                        <label for="condition3">Não revelarei este feitiço a ninguém (isto anularia seus efeitos).</label>
+                    </div>
+                </div>
+
+                <div class="modal-email-field">
+                    <label for="userEmail">Email *</label>
+                    <input type="email" id="userEmail" placeholder="Email" required oninput="checkAllConditions()">
+                </div>
+
+                <button class="modal-button" id="nextButton1" onclick="goToStep2()" disabled>Passo 2</button>
+            </div>
+
+            <!-- Passo 2 -->
+            <div class="modal-step" id="step2">
+                <h2 class="modal-step-title">Passo 2: Ajude Dona Jurema a te conhecer melhor</h2>
+                
+                <div class="modal-form-field">
+                    <label for="userName">Nome *</label>
+                    <input type="text" id="userName" placeholder="Nome" required oninput="validateStep2()">
+                </div>
+
+                <div class="modal-form-field">
+                    <label for="userSign">Seu signo astrológico *</label>
+                    <select id="userSign" required onchange="validateStep2()">
+                        <option value="">Selecione seu signo</option>
+                        <option value="aries">Áries</option>
+                        <option value="touro">Touro</option>
+                        <option value="gemeos">Gêmeos</option>
+                        <option value="cancer">Câncer</option>
+                        <option value="leao">Leão</option>
+                        <option value="virgem">Virgem</option>
+                        <option value="libra">Libra</option>
+                        <option value="escorpiao">Escorpião</option>
+                        <option value="sagitario">Sagitário</option>
+                        <option value="capricornio">Capricórnio</option>
+                        <option value="aquario">Aquário</option>
+                        <option value="peixes">Peixes</option>
+                    </select>
+                </div>
+
+                <div class="modal-form-field">
+                    <label for="partnerName">Nome do seu parceiro(a) *</label>
+                    <input type="text" id="partnerName" placeholder="Nome do seu parceiro(a)" required oninput="validateStep2()">
+                </div>
+
+                <div class="modal-form-field">
+                    <label for="partnerSign">Signo astrológico do seu parceiro(a) *</label>
+                    <select id="partnerSign" required onchange="validateStep2()">
+                        <option value="">Selecione o signo</option>
+                        <option value="aries">Áries</option>
+                        <option value="touro">Touro</option>
+                        <option value="gemeos">Gêmeos</option>
+                        <option value="cancer">Câncer</option>
+                        <option value="leao">Leão</option>
+                        <option value="virgem">Virgem</option>
+                        <option value="libra">Libra</option>
+                        <option value="escorpiao">Escorpião</option>
+                        <option value="sagitario">Sagitário</option>
+                        <option value="capricornio">Capricórnio</option>
+                        <option value="aquario">Aquário</option>
+                        <option value="peixes">Peixes</option>
+                    </select>
+                </div>
+
+                <div class="modal-form-field">
+                    <label for="relationshipStatus">Qual é o estado atual do seu relacionamento? *</label>
+                    <select id="relationshipStatus" required onchange="validateStep2()">
+                        <option value="">Selecione uma opção</option>
+                        <option value="terminado">Terminado</option>
+                        <option value="afastado">Afastado/Distante</option>
+                        <option value="em-crise">Em crise</option>
+                        <option value="sem-contato">Sem contato</option>
+                        <option value="amizade">Apenas amizade</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+
+                <div class="modal-form-field">
+                    <label for="lastContact">Quando foi o último contato? *</label>
+                    <select id="lastContact" required onchange="validateStep2()">
+                        <option value="">Selecione uma opção</option>
+                        <option value="hoje">Hoje</option>
+                        <option value="esta-semana">Esta semana</option>
+                        <option value="este-mes">Este mês</option>
+                        <option value="2-3-meses">2-3 meses atrás</option>
+                        <option value="4-6-meses">4-6 meses atrás</option>
+                        <option value="mais-6-meses">Mais de 6 meses atrás</option>
+                    </select>
+                </div>
+
+                <div class="modal-form-field">
+                    <label for="expectedResult">Que resultado você espera obter? *</label>
+                    <select id="expectedResult" required onchange="validateStep2()">
+                        <option value="">Selecione uma opção</option>
+                        <option value="voltar-juntos">Fazer ele voltar para mim</option>
+                        <option value="reacender-paixao">Reacender a paixão</option>
+                        <option value="compromisso">Fazer ele se comprometer</option>
+                        <option value="atrair-novamente">Atrair novamente</option>
+                        <option value="reconquistar">Reconquistar</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
+
+                <div class="modal-buttons-container">
+                    <button class="modal-button-secondary" onclick="goBackToStep1()">Voltar</button>
+                    <button class="modal-button" id="nextButton2" onclick="goToStep3()" disabled>Verificar disponibilidade</button>
+                </div>
+            </div>
+
+            <!-- Passo 3 -->
+            <div class="modal-step" id="step3">
+                <h2 class="modal-step-title">Passo 3: Verificação de disponibilidade em andamento...</h2>
+                
+                <div class="modal-success-message">
+                    <h3>🎉 Parabéns!</h3>
+                    <p>Restam <span class="highlight" style="color: #ffd700; font-weight: bold;">2 vagas</span> disponíveis.</p>
+                    <p>Clique abaixo para reservar a sua!</p>
+                </div>
+
+                <div class="loading-bar">
+                    <div class="loading-bar-fill" style="width: 100%;"></div>
+                </div>
+
+                <button class="modal-button" id="checkoutButton" onclick="goToCheckout()">Passar ao próximo passo</button>
+                
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function tryLoadImage(imgElement) {
+            const src = imgElement.getAttribute('src');
+            const basePath = src.substring(0, src.lastIndexOf('.'));
+            const extensions = ['.png', '.jpeg', '.jpg', '.webp'];
+            let currentIndex = 0;
+
+            function tryNext() {
+                if (currentIndex < extensions.length) {
+                    imgElement.src = basePath + extensions[currentIndex];
+                    currentIndex++;
+                } else {
+                    imgElement.classList.add('error');
+                }
+            }
+
+            imgElement.onerror = function() {
+                tryNext();
+            };
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const images = document.querySelectorAll('.story-image');
+            images.forEach(function(img) {
+                img.onerror = function() {
+                    tryLoadImage(this);
+                };
+            });
+        });
+
+        // Modal Functions
+        function openModal() {
+            const modal = document.getElementById('modalOverlay');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Resetar para o passo 1
+            document.getElementById('step1').classList.add('active');
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step3').classList.remove('active');
+            document.getElementById('progressBar').style.width = '33.33%';
+            
+            // Limpar campos do passo 1
+            document.getElementById('condition1').checked = false;
+            document.getElementById('condition2').checked = false;
+            document.getElementById('condition3').checked = false;
+            document.getElementById('userEmail').value = '';
+            document.getElementById('nextButton1').disabled = true;
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modalOverlay');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function checkAllConditions() {
+            const condition1 = document.getElementById('condition1').checked;
+            const condition2 = document.getElementById('condition2').checked;
+            const condition3 = document.getElementById('condition3').checked;
+            const email = document.getElementById('userEmail').value.trim();
+            const emailValid = email.includes('@') && email.includes('.');
+            
+            const nextButton = document.getElementById('nextButton1');
+            
+            if (condition1 && condition2 && condition3 && emailValid) {
+                nextButton.disabled = false;
+            } else {
+                nextButton.disabled = true;
+            }
+        }
+
+        function goToStep2() {
+            // Atualizar barra de progresso
+            document.getElementById('progressBar').style.width = '66.66%';
+            
+            // Esconder passo 1 e mostrar passo 2
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+            
+            // Validar passo 2
+            validateStep2();
+        }
+
+        function validateStep2() {
+            const userName = document.getElementById('userName').value.trim();
+            const userSign = document.getElementById('userSign').value;
+            const partnerName = document.getElementById('partnerName').value.trim();
+            const partnerSign = document.getElementById('partnerSign').value;
+            const relationshipStatus = document.getElementById('relationshipStatus').value;
+            const lastContact = document.getElementById('lastContact').value;
+            const expectedResult = document.getElementById('expectedResult').value;
+            
+            const nextButton2 = document.getElementById('nextButton2');
+            
+            if (userName && userSign && partnerName && partnerSign && 
+                relationshipStatus && lastContact && expectedResult) {
+                nextButton2.disabled = false;
+            } else {
+                nextButton2.disabled = true;
+            }
+        }
+
+        function goBackToStep1() {
+            // Atualizar barra de progresso
+            document.getElementById('progressBar').style.width = '33.33%';
+            
+            // Esconder passo 2 e mostrar passo 1
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step1').classList.add('active');
+        }
+
+        function goToStep3() {
+            // Atualizar barra de progresso
+            document.getElementById('progressBar').style.width = '100%';
+            
+            // Esconder passo 2 e mostrar passo 3
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step3').classList.add('active');
+            
+            // Simular verificação de disponibilidade (opcional - você pode remover se quiser ir direto)
+            setTimeout(function() {
+                // A verificação já está completa, o passo 3 já está visível
+            }, 500);
+        }
+
+        function goToCheckout() {
+            // Coletar todos os dados do formulário
+            const formData = {
+                email: document.getElementById('userEmail').value,
+                nome: document.getElementById('userName').value,
+                signo: document.getElementById('userSign').value,
+                parceiroNome: document.getElementById('partnerName').value,
+                parceiroSigno: document.getElementById('partnerSign').value,
+                relacionamento: document.getElementById('relationshipStatus').value,
+                ultimoContato: document.getElementById('lastContact').value,
+                resultadoEsperado: document.getElementById('expectedResult').value
+            };
+
+            // Aqui você pode enviar os dados para seu backend ou processador de pagamento
+            // Por exemplo: enviar para uma API, salvar em localStorage, etc.
+            
+            // Salvar dados no localStorage
+            localStorage.setItem('feiticoFormData', JSON.stringify(formData));
+
+            // Redirecionar para o checkout de pagamento
+            window.location.href = 'https://pay.cakto.com.br/cknyquf_658224';
+        }
+
+        // Fechar modal ao clicar fora
+        document.getElementById('modalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Fechar modal com ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
