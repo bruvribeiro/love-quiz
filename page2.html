@@ -1501,7 +1501,7 @@
                     <input type="email" id="userEmail" placeholder="Email" required oninput="checkAllConditions()">
                 </div>
 
-                <button class="modal-button" id="nextButton1" onclick="goToStep2()" disabled>Passo 2</button>
+                <button class="modal-button" id="nextButton1" onclick="goToStep2()" disabled>Continuar</button>
             </div>
 
             <!-- Passo 2 -->
@@ -1603,21 +1603,29 @@
 
             <!-- Passo 3 -->
             <div class="modal-step" id="step3">
-                <h2 class="modal-step-title">Passo 3: Verificação de disponibilidade em andamento...</h2>
+                <h2 class="modal-step-title" id="step3Title">Passo 3: Verificação de disponibilidade em andamento...</h2>
                 
-                <div class="modal-success-message">
+                <div id="verificationProcess">
+                    <p style="text-align: center; color: #e6e6fa; font-size: 1.1em; margin: 30px 0;">
+                        Aguarde enquanto verificamos as vagas disponíveis...
+                    </p>
+                    
+                    <div class="loading-bar">
+                        <div class="loading-bar-fill" id="verificationProgress" style="width: 0%;"></div>
+                    </div>
+                    
+                    <p id="verificationStatus" style="text-align: center; color: #d8bfd8; font-size: 0.95em; margin-top: 20px; font-style: italic;">
+                        Consultando agenda de Dona Jurema...
+                    </p>
+                </div>
+                
+                <div class="modal-success-message" id="successMessage" style="display: none;">
                     <h3>🎉 Parabéns!</h3>
                     <p>Restam <span class="highlight" style="color: #ffd700; font-weight: bold;">2 vagas</span> disponíveis.</p>
                     <p>Clique abaixo para reservar a sua!</p>
+                    
+                    <button class="modal-button" id="checkoutButton" onclick="goToCheckout()" style="margin-top: 30px;">Passar ao próximo passo</button>
                 </div>
-
-                <div class="loading-bar">
-                    <div class="loading-bar-fill" style="width: 100%;"></div>
-                </div>
-
-                <button class="modal-button" id="checkoutButton" onclick="goToCheckout()">Passar ao próximo passo</button>
-                
-
             </div>
         </div>
     </div>
@@ -1761,10 +1769,8 @@
             document.getElementById('step2').classList.remove('active');
             document.getElementById('step3').classList.add('active');
             
-            // Simular verificação de disponibilidade (opcional - você pode remover se quiser ir direto)
-            setTimeout(function() {
-                // A verificação já está completa, o passo 3 já está visível
-            }, 500);
+            // CHAMAR A ANIMAÇÃO DE VERIFICAÇÃO
+            animateVerification();
         }
 
         function goToCheckout() {
@@ -1790,6 +1796,55 @@
             window.location.href = 'https://pay.cakto.com.br/cknyquf_658224';
         }
 
+        function animateVerification() {
+            const progressBar = document.getElementById('verificationProgress');
+            const statusText = document.getElementById('verificationStatus');
+            const verificationDiv = document.getElementById('verificationProcess');
+            const successDiv = document.getElementById('successMessage');
+            const titleElement = document.getElementById('step3Title');
+            
+            // Garantir que os elementos existem
+            if (!progressBar || !statusText || !verificationDiv || !successDiv || !titleElement) {
+                console.error('Elementos do passo 3 não encontrados!');
+                return;
+            }
+            
+            const messages = [
+                'Consultando agenda de Dona Jurema...',
+                'Verificando alinhamento astral...',
+                'Analisando disponibilidade de vagas...',
+                'Confirmando janela astrológica...'
+            ];
+            
+            let progress = 0;
+            let messageIndex = 0;
+            
+            const interval = setInterval(() => {
+                progress += 2;
+                progressBar.style.width = progress + '%';
+                
+                // Trocar mensagem a cada 25% de progresso
+                if (progress === 26 || progress === 50 || progress === 76) {
+                    messageIndex++;
+                    if (messageIndex < messages.length) {
+                        statusText.textContent = messages[messageIndex];
+                    }
+                }
+                
+                // Quando chegar a 100%
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    
+                    // Aguardar um momento antes de mostrar sucesso
+                    setTimeout(() => {
+                        verificationDiv.style.display = 'none';
+                        successDiv.style.display = 'block';
+                        titleElement.textContent = 'Passo 3: Disponibilidade Confirmada!';
+                    }, 500);
+                }
+            }, 50); // Atualiza a cada 50ms, completando em ~2.5 segundos
+        }
+
         // Fechar modal ao clicar fora
         document.getElementById('modalOverlay').addEventListener('click', function(e) {
             if (e.target === this) {
@@ -1801,6 +1856,35 @@
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeModal();
+            }
+            
+            // Avançar com Enter
+            if (e.key === 'Enter') {
+                const step1 = document.getElementById('step1');
+                const step2 = document.getElementById('step2');
+                const step3 = document.getElementById('step3');
+                
+                // Se estiver no passo 1 e o botão estiver habilitado
+                if (step1.classList.contains('active')) {
+                    const nextButton1 = document.getElementById('nextButton1');
+                    if (!nextButton1.disabled) {
+                        goToStep2();
+                    }
+                }
+                // Se estiver no passo 2 e o botão estiver habilitado
+                else if (step2.classList.contains('active')) {
+                    const nextButton2 = document.getElementById('nextButton2');
+                    if (!nextButton2.disabled) {
+                        goToStep3();
+                    }
+                }
+                // Se estiver no passo 3 e a mensagem de sucesso estiver visível
+                else if (step3.classList.contains('active')) {
+                    const successMessage = document.getElementById('successMessage');
+                    if (successMessage.style.display !== 'none') {
+                        goToCheckout();
+                    }
+                }
             }
         });
     </script>
